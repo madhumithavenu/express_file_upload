@@ -28,7 +28,19 @@ pool.getConnection((err,connection)=>{
 
 
 app.get('/', (req, res) => {
-    res.render('index');
+
+    pool.getConnection((err,connection)=>{
+        if(err) throw err;
+        console.log('Connected');
+
+        connection.query('SELECT * FROM user WHERE id = "1"',(err,rows)=>{
+            connection.release();
+
+            if(!err){
+                res.render('index',{rows});
+            }
+        });
+    });
 });
 
 app.post('/store', (req, res) => {
@@ -56,7 +68,22 @@ app.post('/store', (req, res) => {
     sampleFile.mv(uploadPath, (err) => {
         if (err) return res.status(500).send(err);
 
-        res.send("File uploaded successfully");
+        // res.send("File uploaded successfully");
+
+        pool.getConnection((err,connection)=>{
+            if(err) throw err;
+            console.log('Connected');
+    
+            connection.query('UPDATE user SET profile_image = ? WHERE id="1"',[newFileName],(err,rows)=>{
+                connection.release();
+    
+                if(!err){
+                    res.redirect('/');
+                }else{
+                    console.log(err);
+                }
+            });
+        });
     })
 });
 
