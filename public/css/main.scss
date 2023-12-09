@@ -37,7 +37,7 @@ img{width: 100%;}
     border-radius: 5px;
     box-shadow: 0 10px 20px rgba(0, 0,0,0),0 6px 36px rgba(0, 0,0,13);
     border-color: #fff;
-}
+
 
 &__image{
     display: block;
@@ -48,4 +48,10 @@ img{width: 100%;}
     overflow: hidden;
     object-fit: cover;
     box-shadow: 0 10px 20px rgba(0, 0,0,0),0 6px 36px rgba(0, 0,0,13);
+    border: 3px solid #fff;
+}
+
+&__title {margin: 0;}
+
+&__job {color: #6E8192;}
 }
